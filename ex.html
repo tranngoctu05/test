@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Giỏ hàng</title>
+	<script>
+		function tinhTongTien() {
+			var tongTien = 0;
+			var cacHang = document.getElementsByClassName("hang-san-pham");
+			for (var i = 0; i < cacHang.length; i++) {
+				var soLuong = cacHang[i].getElementsByClassName("so-luong")[0].value;
+				var giaTien = cacHang[i].getElementsByClassName("gia-tien")[0].innerText;
+				giaTien = giaTien.replace("đ", "").replace(",", "");
+				tongTien += soLuong * parseInt(giaTien);
+			}
+			document.getElementById("tong-tien").innerText = formatTien(tongTien);
+		}
+
+		function formatTien(tien) {
+			return tien.toLocaleString('vi', {style : 'currency', currency : 'VND'});
+		}
+	</script>
+</head>
+<body>
+	<h1>Giỏ hàng của bạn</h1>
+	<table>
+		<tr>
+			<th>Sản phẩm</th>
+			<th>Số lượng</th>
+			<th>Giá tiền</th>
+		</tr>
+		<tr class="hang-san-pham">
+			<td>Áo phông</td>
+			<td><input type="number" class="so-luong" value="1" min="1" onchange="tinhTongTien()"></td>
+			<td class="gia-tien">200,000đ</td>
+		</tr>
+		<tr class="hang-san-pham">
+			<td>Quần jean</td>
+			<td><input type="number" class="so-luong" value="2" min="1" onchange="tinhTongTien()"></td>
+			<td class="gia-tien">300,000đ</td>
+		</tr>
+		<tr>
+			<td colspan="2">Tổng tiền</td>
+			<td id="tong-tien">0đ</td>
+		</tr>
+	</table>
+</body>
+</html>
